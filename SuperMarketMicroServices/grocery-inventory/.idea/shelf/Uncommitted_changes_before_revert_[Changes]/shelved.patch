@@ -1,0 +1,231 @@
+Index: .idea/.gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># Default ignored files\r\n/shelf/\r\n/workspace.xml\r\n
+===================================================================
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+--- a/.idea/.gitignore	(revision 00373f4e2bb59299093a198d09320d9109731d4c)
++++ b/.idea/.gitignore	(date 1758477390004)
+@@ -1,3 +1,38 @@
+ # Default ignored files
+ /shelf/
+ /workspace.xml
++
++
++HELP.md
++target/
++.mvn/wrapper/maven-wrapper.jar
++!**/src/main/**/target/
++!**/src/test/**/target/
++
++### STS ###
++.apt_generated
++.classpath
++.factorypath
++.project
++.settings
++.springBeans
++.sts4-cache
++
++### IntelliJ IDEA ###
++.idea
++*.iws
++*.iml
++*.ipr
++
++### NetBeans ###
++/nbproject/private/
++/nbbuild/
++/dist/
++/nbdist/
++/.nb-gradle/
++build/
++!**/src/main/**/build/
++!**/src/test/**/build/
++
++### VS Code ###
++.vscode/
+\ No newline at end of file
+Index: ../../supermarket/src/main/java/com/pune/supermarket/model/GroceryItem.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.pune.supermarket.model;\r\n\r\npublic class GroceryItem {\r\n}\r\n
+===================================================================
+diff --git a/../../supermarket/src/main/java/com/pune/supermarket/model/GroceryItem.java b/../../supermarket/src/main/java/com/pune/supermarket/model/GroceryItem.java
+--- a/../../supermarket/src/main/java/com/pune/supermarket/model/GroceryItem.java	(revision 00373f4e2bb59299093a198d09320d9109731d4c)
++++ b/../../supermarket/src/main/java/com/pune/supermarket/model/GroceryItem.java	(date 1755354721108)
+@@ -1,4 +1,30 @@
+ package com.pune.supermarket.model;
+ 
++import jakarta.persistence.*;
++import lombok.*;
++import org.hibernate.annotations.JdbcTypeCode;
++import org.hibernate.type.SqlTypes;
++
++import java.time.LocalDate;
++
++@Getter
++@Setter
++@NoArgsConstructor
++@AllArgsConstructor
++@Entity
+ public class GroceryItem {
++    @Id
++    @GeneratedValue(strategy = GenerationType.IDENTITY)
++    @Column(nullable = false)
++    @JdbcTypeCode(SqlTypes.TINYINT)
++    private Long id;
++
++    private String name;
++    private String category;
++    private int quantity;
++    private double price;
++    private LocalDate expiryDate;
++
++
++
+ }
+Index: ../../supermarket/src/main/java/com/pune/supermarket/GroceryItemRepository.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.pune.supermarket;\r\n\r\npublic interface GroceryItemRepository {\r\n}\r\n
+===================================================================
+diff --git a/../../supermarket/src/main/java/com/pune/supermarket/GroceryItemRepository.java b/../../supermarket/src/main/java/com/pune/supermarket/GroceryItemRepository.java
+--- a/../../supermarket/src/main/java/com/pune/supermarket/GroceryItemRepository.java	(revision 00373f4e2bb59299093a198d09320d9109731d4c)
++++ b/../../supermarket/src/main/java/com/pune/supermarket/GroceryItemRepository.java	(date 1755354817256)
+@@ -1,4 +1,12 @@
+ package com.pune.supermarket;
+ 
+-public interface GroceryItemRepository {
++import com.pune.supermarket.model.GroceryItem;
++import org.springframework.data.jpa.repository.JpaRepository;
++import org.springframework.stereotype.Repository;
++
++@Repository
++public interface GroceryItemRepository extends JpaRepository<GroceryItem, Long> {
++    // Additional query methods can be defined here if needed
++
++
+ }
+Index: ../../supermarket/src/main/java/com/pune/supermarket/controller/GroceryController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.pune.supermarket.controller;\r\n\r\npublic class GroceryController {\r\n}\r\n
+===================================================================
+diff --git a/../../supermarket/src/main/java/com/pune/supermarket/controller/GroceryController.java b/../../supermarket/src/main/java/com/pune/supermarket/controller/GroceryController.java
+--- a/../../supermarket/src/main/java/com/pune/supermarket/controller/GroceryController.java	(revision 00373f4e2bb59299093a198d09320d9109731d4c)
++++ b/../../supermarket/src/main/java/com/pune/supermarket/controller/GroceryController.java	(date 1755370391290)
+@@ -1,4 +1,40 @@
+ package com.pune.supermarket.controller;
+ 
++import com.pune.supermarket.model.GroceryItem;
++import com.pune.supermarket.service.GroceryItemService;
++import org.springframework.web.bind.annotation.*;
++
++import java.util.List;
++
++@RestController(value = "/grocery")
+ public class GroceryController {
++
++    GroceryItemService groceryItemService;
++    public GroceryController(GroceryItemService groceryItemService) {
++        this.groceryItemService = groceryItemService;
++    }
++    @GetMapping
++    public List<GroceryItem> getAllGroceryItems() {
++        return groceryItemService.getAllGroceryItems();
++    }
++    @GetMapping("/{id}")
++    public GroceryItem getGroceryItemById(@PathVariable Long id) {
++        return groceryItemService.getGroceryItemById(id);
++    }
++    @PostMapping
++    public GroceryItem addGroceryItem(@RequestBody GroceryItem groceryItem) {
++       return groceryItemService.addGroceryItem(groceryItem);
++    }
++    @PutMapping("/{id}")
++    public GroceryItem updateGroceryItem(@PathVariable Long id, @RequestBody GroceryItem groceryItem) {
++        groceryItemService.updateGroceryItem(id, groceryItem);
++        return groceryItemService.getGroceryItemById(id);
++    }
++    @DeleteMapping("/{id}")
++    public void deleteGroceryItem(@PathVariable Long id) {
++        groceryItemService.deleteGroceryItem(id);
++    }
++
++
++
+ }
+Index: ../../supermarket/Dockerfile
+===================================================================
+diff --git a/../../supermarket/Dockerfile b/../../supermarket/Dockerfile
+--- a/../../supermarket/Dockerfile	(revision 00373f4e2bb59299093a198d09320d9109731d4c)
++++ b/../../supermarket/Dockerfile	(date 1755402074379)
+@@ -1,0 +1,4 @@
++FROM openjdk:17-jdk-slim
++COPY target/Supermarket-0.0.1-SNAPSHOT.jar /app/supermarket.jar
++WORKDIR /app
++ENTRYPOINT ["java", "-jar", "supermarket.jar"]
+\ No newline at end of file
+Index: ../../supermarket/src/main/java/com/pune/supermarket/service/GroceryItemService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.pune.supermarket;\r\n\r\n\r\nimport org.springframework.stereotype.Service;\r\n\r\n@Service\r\npublic class GroceryItemService {\r\n\r\n    \r\n\r\n\r\n}\r\n
+===================================================================
+diff --git a/../../supermarket/src/main/java/com/pune/supermarket/service/GroceryItemService.java b/../../supermarket/src/main/java/com/pune/supermarket/service/GroceryItemService.java
+--- a/../../supermarket/src/main/java/com/pune/supermarket/service/GroceryItemService.java	(revision 00373f4e2bb59299093a198d09320d9109731d4c)
++++ b/../../supermarket/src/main/java/com/pune/supermarket/service/GroceryItemService.java	(date 1755370308390)
+@@ -1,12 +1,51 @@
+-package com.pune.supermarket;
++package com.pune.supermarket.service;
+ 
+ 
++import com.pune.supermarket.GroceryItemRepository;
++import com.pune.supermarket.model.GroceryItem;
+ import org.springframework.stereotype.Service;
+ 
++import java.util.List;
++
+ @Service
+ public class GroceryItemService {
+ 
+-    
++    GroceryItemRepository groceryItemRepository;
++    public GroceryItemService(GroceryItemRepository groceryItemRepository) {
++        this.groceryItemRepository = groceryItemRepository;
++    }
+ 
++    // Add methods to interact with the repository, e.g., findAll, save, delete, etc.
++    public GroceryItem addGroceryItem(GroceryItem groceryItem) {
++        return groceryItemRepository.save(groceryItem);
++    }
++    public GroceryItem getGroceryItemById(Long id) {
++        return groceryItemRepository.findById(id).orElse(null);
++    }
++    public void deleteGroceryItem(Long id) {
++        groceryItemRepository.deleteById(id);
++    }
++    public void updateGroceryItem(Long id, GroceryItem groceryItem) {
++        groceryItem.setId(id);
++        // Optionally, you can check if the item exists before updating
++        if (!groceryItemRepository.existsById(id)) {
++            throw new IllegalArgumentException("Grocery item with id " + id + " does not exist.");
++        }
++        // Save the updated item
++        groceryItemRepository.save(groceryItem);
++    }
++    public List<GroceryItem> getAllGroceryItems() {
++        return groceryItemRepository.findAll();
++    }
++    public List<GroceryItem> getGroceryItemsByCategory(String category) {
++        return groceryItemRepository.findAll().stream()
++                .filter(item -> item.getCategory().equalsIgnoreCase(category))
++                .toList();
++    }
++    public List<GroceryItem> getGroceryItemsByName(String name) {
++        return groceryItemRepository.findAll().stream()
++                .filter(item -> item.getName().equalsIgnoreCase(name))
++                .toList();
++    }
+ 
+ }

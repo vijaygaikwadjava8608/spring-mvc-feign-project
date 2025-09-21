@@ -1,0 +1,5 @@
+com\grocery\product_service\service\ProductService.class
+com\grocery\product_service\controller\ProductController.class
+com\grocery\product_service\repository\ProductRepository.class
+com\grocery\product_service\entity\Product.class
+com\grocery\product_service\ProductServiceApplication.class

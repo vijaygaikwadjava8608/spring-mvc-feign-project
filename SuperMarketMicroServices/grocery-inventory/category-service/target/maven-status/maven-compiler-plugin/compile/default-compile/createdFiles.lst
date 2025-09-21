@@ -1,0 +1,5 @@
+com\grocery\category_service\repository\CategoryRepository.class
+com\grocery\category_service\controller\CategoryController.class
+com\grocery\category_service\entity\Category.class
+com\grocery\category_service\service\CategoryService.class
+com\grocery\category_service\CategoryServiceApplication.class

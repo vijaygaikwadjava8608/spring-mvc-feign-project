@@ -1,0 +1,52 @@
+Index: ../category-service/src/main/java/com/grocery/category_service/entity/Category.java
+===================================================================
+diff --git a/../category-service/src/main/java/com/grocery/category_service/entity/Category.java b/../category-service/src/main/java/com/grocery/category_service/entity/Category.java
+deleted file mode 100644
+--- a/../category-service/src/main/java/com/grocery/category_service/entity/Category.java	(revision 00373f4e2bb59299093a198d09320d9109731d4c)
++++ /dev/null	(revision 00373f4e2bb59299093a198d09320d9109731d4c)
+@@ -1,4 +0,0 @@
+-package com.grocery.category_service.entity;
+-
+-public class Category {
+-}
+Index: ../category-service/src/main/java/com/grocery/category_service/service/CategoryService.java
+===================================================================
+diff --git a/../category-service/src/main/java/com/grocery/category_service/service/CategoryService.java b/../category-service/src/main/java/com/grocery/category_service/service/CategoryService.java
+deleted file mode 100644
+--- a/../category-service/src/main/java/com/grocery/category_service/service/CategoryService.java	(revision 00373f4e2bb59299093a198d09320d9109731d4c)
++++ /dev/null	(revision 00373f4e2bb59299093a198d09320d9109731d4c)
+@@ -1,4 +0,0 @@
+-package com.grocery.category_service.service;
+-
+-public class CategoryService {
+-}
+Index: ../category-service/src/main/java/com/grocery/category_service/repository/CategoryRepository.java
+===================================================================
+diff --git a/../category-service/src/main/java/com/grocery/category_service/repository/CategoryRepository.java b/../category-service/src/main/java/com/grocery/category_service/repository/CategoryRepository.java
+deleted file mode 100644
+--- a/../category-service/src/main/java/com/grocery/category_service/repository/CategoryRepository.java	(revision 00373f4e2bb59299093a198d09320d9109731d4c)
++++ /dev/null	(revision 00373f4e2bb59299093a198d09320d9109731d4c)
+@@ -1,4 +0,0 @@
+-package com.grocery.category_service.repository;
+-
+-public interface CategoryRepository {
+-}
+Index: ../category-service/src/main/java/com/grocery/category_service/controller/CategoryController.java
+===================================================================
+diff --git a/../category-service/src/main/java/com/grocery/category_service/controller/CategoryController.java b/../category-service/src/main/java/com/grocery/category_service/controller/CategoryController.java
+deleted file mode 100644
+--- a/../category-service/src/main/java/com/grocery/category_service/controller/CategoryController.java	(revision 00373f4e2bb59299093a198d09320d9109731d4c)
++++ /dev/null	(revision 00373f4e2bb59299093a198d09320d9109731d4c)
+@@ -1,4 +0,0 @@
+-package com.grocery.category_service.controller;
+-
+-public class CategoryController {
+-}
+diff --git a/../category-service/src/main/resources/application-docker.yml b/../category-service/src/main/resources/application-docker.yml
+deleted file mode 100644
+diff --git a/../category-service/src/main/resources/application-local.yml b/../category-service/src/main/resources/application-local.yml
+deleted file mode 100644
+diff --git a/../category-service/docker-compose.yml b/../category-service/docker-compose.yml
+deleted file mode 100644
+diff --git a/../category-service/Dockerfile b/../category-service/Dockerfile
+deleted file mode 100644
