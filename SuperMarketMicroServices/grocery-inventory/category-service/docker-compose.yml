@@ -1,0 +1,35 @@
+
+
+services:
+  category-db:
+    image: postgres:16
+    container_name: category-db
+    environment:
+      POSTGRES_DB: categorydb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: categorypass
+    ports:
+      - "5432:5432"
+    volumes:
+      - category_data:/var/lib/postgresql/data
+
+  category-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: category-service
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://category-db:5432/categorydb
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: categorypass
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: true
+      SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL: true
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.PostgreSQLDialect
+    ports:
+      - "8081:8081"
+    depends_on:
+      - category-db
+volumes:
+  category_data:
+
